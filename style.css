@@ -1,5 +1,8 @@
 @charset "UTF-8";
-
+*{
+	box-sizing: border-box;
+	margin:0 auto;
+	}
 header{
 	width : 100%;
 	height : 60px;
@@ -15,12 +18,12 @@ header{
 
 nav{
 	width : 100%;
-	background-color: #3F7AB5;
+	background-color: pink;
 	color: white;
+	text-align: center;
 }
 ul{
 	list-style:none;
-	margin : 0;
 }
 li{
 	display : inline-block;
@@ -28,7 +31,39 @@ li{
 	padding-right : 20px;
 	width : 150px;
 }
-table{
-	margin : 0 auto;
-	text-align:left;
+
+a{
+	 text-decoration-line: none;
+	 color: black;
+}
+
+section{
+	padding:10px;
+	width:100%;
+	height:100vh;
+	background-color : ivory;
+}
+h2{
+	margin-bottom : 10px;
+}
+th{
+	width: 100px;
+	padding : 5px;
+}
+td{
+	width: 100px;
+	padding : 5px;
+}
+select{
+	width:100%;
+}
+footer{
+	width : 100%;
+	position:fixed;
+	bottom : 0;
+	background-color : blue;
+	text-align: center;
+	align-content : center;
+	color: white;
+	font-size: 18px;
 }

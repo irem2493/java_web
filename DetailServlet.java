@@ -18,13 +18,13 @@ public class DetailServlet extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		response.setCharacterEncoding("utf-8");
 		
-		String dojijung_no = request.getParameter("dojijung_no");
-		String MYONGCHING = request.getParameter("MYONGCHING");
+		String dogijungNo = request.getParameter("dogijungNo");
+		String myongChing = request.getParameter("myongChing");
 		
-		if(dojijung_no != null) {
-			request.getRequestDispatcher("detail.jsp?dojijung_no="+dojijung_no).forward(request, response);
+		if(dogijungNo != null) {
+			request.getRequestDispatcher("detail.jsp?dogijungNo="+dogijungNo).forward(request, response);
 		}else {
-			request.getRequestDispatcher("detail.jsp?MYONGCHING="+MYONGCHING).forward(request, response);
+			request.getRequestDispatcher("detail.jsp?myongChing="+myongChing).forward(request, response);
 		}
 	}
 

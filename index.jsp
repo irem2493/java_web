@@ -11,9 +11,6 @@
 <body>
 	<h2>경남 자주 찾는 문화재</h2>
 	<hr>
-	
-	<button type="button" onclick="loadDoc()">문화재 목록보기</button><br><br>
-	
 	<table border="1">
 		<thead>
 			<tr>
@@ -25,37 +22,34 @@
 		</tbody>
 	</table>
 	
-	<p id="demo"></p>
 	<script>
-			let i = 0;
-		function loadDoc() {
-		  const xhttp = new XMLHttpRequest();
-		  xhttp.onload = function() {
-			 const obj = JSON.parse(this.responseText);
-			 let bodyArr = [];
-			 bodyArr = obj.gyeongnamculturallist.body.items.item;
-			 for(let i=0; i<bodyArr.length;i++){
-				 if(bodyArr[i].DOJIJUNG_NO !== null){
-					 
-			    	document.getElementById("demo").innerHTML += 
-			    	"<tr><td><img src=\""+bodyArr[i].fileurl1+"\" width=\"200px\ alt=\""+bodyArr[i].DOJIJUNG_NO+"\"></td><td><a href=\"detail?dojijung_no="+bodyArr[i].DOJIJUNG_NO+"&MYONGCHING="+bodyArr[i].MYONGCHING+"\">"+bodyArr[i].DOJIJUNG_NO+"</a></td><td>"+bodyArr[i].MYONGCHING+"</td></tr>";
-				 }else{
-					 if(bodyArr[i].fileurl1 !== ''){
-						 
-						 document.getElementById("demo").innerHTML += 
-						    	"<tr><td><img src=\""+bodyArr[i].fileurl1+"\" width=\"200px\" alt=\""+bodyArr[i].MYONGCHING+"\"></td><td><a href=\"detail?dojijung_no="+bodyArr[i].DOJIJUNG_NO+"&MYONGCHING="+bodyArr[i].MYONGCHING+"\">"+bodyArr[i].MYONGCHING+"</a></td><td>"+bodyArr[i].MYONGCHING+"</td></tr>";
-					 }else{
-						 document.getElementById("demo").innerHTML += 
-						    	"<tr><td><img src=\"img/no_img.jpg\" width=\"200px\" alt=\"No Img\"></td><td><a href=\"detail?dojijung_no="+bodyArr[i].DOJIJUNG_NO+"&MYONGCHING="+bodyArr[i].MYONGCHING+"\">"+bodyArr[i].MYONGCHING+"</a></td><td>"+bodyArr[i].MYONGCHING+"</td></tr>";
-					 }
-					 
-				 }
-			 }
-		    	
-		  }
-		  xhttp.open("GET", "api");
-		  xhttp.send();
-	}
+	$.ajax({
+		url:"api",
+		type:"GET",
+		dataType:'json',
+		success: function(data){
+			console.log(data);
+			data.gyeongnamculturallist.body.items.item.forEach((item)=>{
+				var fileurl1 = item.fileurl1 || 'img/no_img.jpg';
+				var fileurl2 = item.fileurl2 || 'img/no_img.jpg';
+				var fileurl3 = item.fileurl3 || 'img/no_img.jpg';
+				var dogijungNo = item.DOJIJUNG_NO || item.MYONGCHING;
+				var myongChing = item.MYONGCHING;
+				
+				var row = '<tr>'+
+				 '<td><img style="width:200px; height:150px;" src="'+fileurl1+'" alt="Image1"/></td>'+
+				    '<td><a href="detail?dogijungNo=' + dogijungNo + '&myongChing=' + myongChing + '">' + dogijungNo + '</a></td>'+
+				    '<td>' + myongChing + '</td>'+
+				    '</tr>';
+				$('#demo').append(row);
+			});
+			
+		},
+		error:function(xhr, status, error){
+			console.error("AJAX 요청 실패",status,error);
+		}
+	})
+		
 	</script>
 </body>
 </html>

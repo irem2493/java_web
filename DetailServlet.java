@@ -20,18 +20,26 @@ public class DetailServlet extends HttpServlet {
 		
 		String dogijungNo = request.getParameter("dogijungNo");
 		String myongChing = request.getParameter("myongChing");
+		String myongChingHannum  = request.getParameter("myongChingHannum");
+		String content = request.getParameter("content");
+		String jijungDate = request.getParameter("jijungDate");
+		String fileurl1 = request.getParameter("fileurl1");
+		String fileurl2 = request.getParameter("fileurl2");
+		String fileurl3 = request.getParameter("fileurl3");
+		String utmkX = request.getParameter("utmkX");
+		String utmkY = request.getParameter("utmkY");
 		
-		if(dogijungNo != null) {
-			request.getRequestDispatcher("detail.jsp?dogijungNo="+dogijungNo).forward(request, response);
-		}else {
-			request.getRequestDispatcher("detail.jsp?myongChing="+myongChing).forward(request, response);
-		}
+		
+		request.getRequestDispatcher("detail.jsp?dogijungNo="+dogijungNo+
+				"myongChing="+myongChing+
+				"myongChingHannum="+myongChingHannum+
+				"content="+content+
+				"jijungDate="+jijungDate+
+				"fileurl1="+fileurl1+
+				"fileurl2="+fileurl2+
+				"fileurl3="+fileurl3+
+				"utmkX="+utmkX+
+				"utmkY="+utmkY
+				).forward(request, response);
 	}
-
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-
 }

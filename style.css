@@ -1,75 +1,10 @@
 @charset "UTF-8";
+
 *{
-	box-sizing: border-box;
-	margin:0 auto;
-	}
-header{
-	position:fixed;
-	top : 0px;
-	width : 100%;
-	height : 60px;
-	background-color : blue;
-	text-align: center;
-	align-content : center;
-	color: white;
-	font-size: 28px;
-}
-#wrapper{
-	text-align:center;
-}
-
-nav{
-	position:fixed;
-	top : 60px;
-	width : 100%;
-	background-color: pink;
-	color: white;
+	margin : 0 auto;
 	text-align: center;
 }
-ul{
-	list-style:none;
-}
-li{
-	display : inline-block;
-	margin : 10px;
-	padding-right : 20px;
-	width : 150px;
-}
 
-a{
-	 text-decoration-line: none;
-	 color: black;
-}
-
-section{
-	margin-top:100px;
-	padding:10px;
-	width:100%;
-	height:85vh;
-	background-color : ivory;
-	overflow: auto;
-}
-h2{
-	margin-bottom : 10px;
-}
-th{
-	width: 100px;
-	padding : 5px;
-}
-td{
-	width: 100px;
-	padding : 5px;
-}
-select{
-	width:100%;
-}
-footer{
-	width : 100%;
-	position:fixed;
-	bottom : 0;
-	background-color : blue;
-	text-align: center;
-	align-content : center;
-	color: white;
-	font-size: 18px;
-}
+span{
+		color : blue;
+	}bodyArr[i].ADDRESS1bodyArr[i].ADDRESS1

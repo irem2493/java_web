@@ -6,65 +6,68 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<link rel="stylesheet" href="css/style.css"></link>
 </head>
 <body>
-	<h2>경남 자주 찾는 문화재</h2>
+	<%@ include file="header.jsp" %>  
+	<h2>게시판</h2>
 	<hr>
+	<%
+		if(userId != null){
+	%>
+	<button type="button" onclick="goBoard()">게시글 작성하기</button>
+	<%} %>
+	
+	<h3>게시글 목록</h3>
 	<table border="1">
 		<thead>
 			<tr>
-				<th>이미지</th><th>문화재번호</th><th>문화재이름</th>
+				<th>번호</th>
+				<th>제목</th>
+				<th>작성자</th>
+				<th>등록날짜</th>
 			</tr>
 		</thead>
-		<tbody id="demo">
+		<tbody id='boardList'>
 			
 		</tbody>
 	</table>
-	
 	<script>
 	$.ajax({
-		url:"api",
-		type:"get",
-		dataType:'json',
-		success: function(data){
-			console.log(data);
-			data.gyeongnamculturallist.body.items.item.forEach((item)=>{
-				var fileurl1 = item.fileurl1 || 'img/no_img.jpg';
-				var fileurl2 = item.fileurl2 || 'img/no_img.jpg';
-				var fileurl3 = item.fileurl3 || 'img/no_img.jpg';
-				var dogijungNo = item.DOJIJUNG_NO || item.MYONGCHING;
-				var myongChing = item.MYONGCHING || '등록된 이름 없음';
-				var myongChingHannum = item.MYONGCHING_HANMUN || '등록된 한문명 없음';
-				var content = item.CONTENT || '등록된 설명 없음';
-				var jijungDate = item.JIJUNG_DATE || '등록된 날짜 없음';
-				var utmkX = item.UTMK_X;
-				var utmkY = item.UTMK_Y;
-				
-				var row = '<tr>'+
-				 '<td><img style="width:200px; height:150px;" src="'+fileurl1+'" alt="Image1"/></td>'+
-				    '<td><a href="detail?dogijungNo=' + dogijungNo + 
-				    		'&myongChing=' + myongChing + 
-				    		'&myongChingHannum=' + myongChingHannum + 
-				    		'&content=' + content + 
-				    		'&jijungDate=' + jijungDate + 
-				    		'&fileurl1=' + fileurl1 + 
-				    		'&fileurl2=' + fileurl2 + 
-				    		'&fileurl3=' + fileurl3 + 
-				    		'&utmkX=' + utmkX + 
-				    		'&utmkY=' + utmkY + 
-				    		'">' 
-				    		+ dogijungNo + '</a></td>'+
-				    '<td>' + myongChing + '</td>'+
+	    url: "boardManage", 
+	    type: "get",
+	    dataType: "json",
+	    success: function(data) {
+	    	console.log(data);
+	         data.forEach((d)=>{
+	        	 var bno = d.bno;
+	        	 var title = d.title;
+	        	 var contents = d.contents;
+	        	 var uid = d.uid;
+	        	 var createDate = d.createDate;
+	        	 
+	        	 var row = '<tr>'+
+				 	'<td>'+bno+'</td>'+
+				    '<td><a href="reply?bno='+bno+
+				    		'&title='+title+
+				    		'&contents='+contents+
+				    		'&uid='+uid+
+				    		'&createDate='+createDate+
+				    		'">'+title+'</a></td>'+
+				    '<td>'+uid+'</td>'+
+				    '<td>'+createDate+'</td>'+
 				    '</tr>';
-				$('#demo').append(row);
-			});
-			
-		},
-		error:function(xhr, status, error){
-			console.error("AJAX 요청 실패",status,error);
+				$('#boardList').append(row);
+	        	 
+	        	 
+	         })// 데이터를 성공적으로 받아오면 출력
+	    },
+	    error: function(xhr, status, error) {
+	        console.error("AJAX 요청 실패:", status, error);  // 오류 발생 시 상태와 오류 출력
+	    }
+	});
+		function goBoard(){
+			location.href="boardReg.jsp";
 		}
-	})
 		
 	</script>
 </body>

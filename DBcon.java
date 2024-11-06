@@ -1,11 +1,11 @@
-package DBPKG;
+package DBcon;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DBcon {
-	public static Connection getConnection(){
+	public static Connection getConnection() {
 		Connection conn = null;
 		String driverName = "org.mariadb.jdbc.Driver";
 		String url = "jdbc:mariadb://localhost:3306/mydb";
@@ -26,4 +26,4 @@ public class DBcon {
 		}
 		return conn;
 	}
-}	
+}

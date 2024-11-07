@@ -38,28 +38,32 @@
 	    dataType: "json",
 	    success: function(data) {
 	    	console.log(data);
+	    	if(data.length > 0){
 	         data.forEach((d)=>{
-	        	 var bno = d.bno;
-	        	 var title = d.title;
-	        	 var contents = d.contents;
-	        	 var uid = d.uid;
-	        	 var createDate = d.createDate;
-	        	 
-	        	 var row = '<tr>'+
-				 	'<td>'+bno+'</td>'+
-				    '<td><a href="reply?bno='+bno+
-				    		'&title='+title+
-				    		'&contents='+contents+
-				    		'&uid='+uid+
-				    		'&createDate='+createDate+
-				    		'">'+title+'</a></td>'+
-				    '<td>'+uid+'</td>'+
-				    '<td>'+createDate+'</td>'+
-				    '</tr>';
-				$('#boardList').append(row);
-	        	 
-	        	 
-	         })// 데이터를 성공적으로 받아오면 출력
+		        	 var bno = d.bno;
+		        	 var title = d.title;
+		        	 var contents = d.contents;
+		        	 var uid = d.uid;
+		        	 var createDate = d.createDate;
+		        	 
+		        	 var row = '<tr>'+
+					 	'<td>'+bno+'</td>'+
+					    '<td><a href="reply?bno='+bno+
+					    		'&title='+title+
+					    		'&contents='+contents+
+					    		'&uid='+uid+
+					    		'&createDate='+createDate+
+					    		'">'+title+'</a></td>'+
+					    '<td>'+uid+'</td>'+
+					    '<td>'+createDate+'</td>'+
+					    '</tr>';
+					$('#boardList').append(row);
+	         	})// 데이터를 성공적으로 받아오면 출력
+	    	}else{
+	    		 var row = '<tr><td colspan="4">등록된 게시물이 없습니다.</td></tr>';
+	    		 $('#boardList').append(row);
+	    		
+	    	}
 	    },
 	    error: function(xhr, status, error) {
 	        console.error("AJAX 요청 실패:", status, error);  // 오류 발생 시 상태와 오류 출력

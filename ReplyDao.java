@@ -1,5 +1,4 @@
 package dao;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,7 +7,6 @@ import java.util.ArrayList;
 
 import DBcon.DBcon;
 import dto.Reply;
-
 public class ReplyDao {
 	Connection conn = DBcon.getConnection();
     public int insertReply(Reply replyDTO){
@@ -39,7 +37,7 @@ public class ReplyDao {
                 replyDto.setRcontents(rs.getString("rcontents"));
                 replyDto.setUid(rs.getString("uid"));
                 replyDto.setRno(rs.getInt("rno"));
-                replyDto.setR_create_date(rs.getTimestamp("r_create_date"));
+                replyDto.setR_create_date(rs.getDate("r_create_date"));
                 r.add(replyDto);
             }
         } catch (SQLException e) {
@@ -79,6 +77,7 @@ public class ReplyDao {
         return result;
     }
 
+    //댓글 하나 삭제
     public int deleteReply(int rno, String id){
         String query = "DELETE FROM replyTable WHERE uid = ? and rno = ?;";
         int result = 0;
@@ -91,5 +90,19 @@ public class ReplyDao {
             e.printStackTrace();
         }
         return result;
+    }
+    
+    //게시글 삭제 시, 해당 게시글의 댓글 삭제
+    public int deleteReplys(int bno) {
+    	String query="DELETE FROM replyTable WHERE bno=?;";
+    	int result = 0;
+    	try {
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, bno);
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    	return result;
     }
 }

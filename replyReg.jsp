@@ -8,7 +8,7 @@
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-	<%@ include file="header.jsp" %> 
+<%@ include file="header.jsp" %> 
 	<h2>게시글 내용보기</h2>
 	<hr>
 	<div>
@@ -57,10 +57,10 @@
 	
 	<%
      
-	int bresult;
+	int presult;
       if(request.getAttribute("presult") != null){
-    	  bresult = (int)request.getAttribute("presult");
-     		 if(bresult > 0){
+    	  presult = (int)request.getAttribute("presult");
+     		 if(presult > 0){
 
      %>
      	<script>
@@ -72,6 +72,8 @@
 	      </script>
       <%}
       }%> 
+      
+      
       
       <script>
       $.ajax({
@@ -103,10 +105,25 @@
   	    }
   	});
       
-      
       function deleteBoard(){
-    	  
+    	  $.ajax({
+    		  url:"boardManage",
+    		  type: "post",
+    		  data: {bno : '${param.bno.split("t")[0]}',
+    			  	uid : '${userId}',
+    			  	mode : 'bdel'
+    		  },success: function(data){    
+    			    alert("게시글이 삭제되었습니다.");
+    			    location.href="index.jsp";
+    		    },
+    		   error : function (data) {
+    		    alert('죄송합니다. 잠시 후 다시 시도해주세요.');
+    		    return false;
+    		   }
+    	  });
       }
+      
+      
       </script>
 </body>
 </html>

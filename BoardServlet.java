@@ -12,14 +12,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.BoardDao;
+import dao.ReplyDao;
 import dto.Board;
 
 
 @WebServlet("/boardManage")
 public class BoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    BoardDao bDao = new BoardDao();
-   
+       
+	BoardDao bDao = new BoardDao();
+	   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
@@ -51,6 +53,7 @@ public class BoardServlet extends HttpServlet {
 		response.setContentType("utf-8");
 		String mode = request.getParameter("mode");
 		if(mode.equals("breg")) registerBoard(request, response);
+		else if(mode.equals("bdel")) deleteBoard(request, response);
 		
 	}
 	
@@ -73,4 +76,29 @@ public class BoardServlet extends HttpServlet {
 			}
 		}
 	}
+	
+	//게시글 삭제
+	void deleteBoard(HttpServletRequest request, HttpServletResponse response) {
+		HttpSession session = request.getSession();
+		Board board = new Board();
+		int bresult_del = 0;
+		ReplyDao rDao = new ReplyDao();
+		int prst = rDao.deleteReplys(Integer.parseInt(request.getParameter("bno")));
+		if(prst > 0) {
+			bresult_del = bDao.deleteBoard((String)session.getAttribute("userId"), Integer.parseInt(request.getParameter("bno")));
+		}
+		
+		if(bresult_del > 0) {
+			request.setAttribute("bresult_del", bresult_del);
+			try {
+				request.getRequestDispatcher("boardReg.jsp?bresult_del="+bresult_del).forward(request, response);
+			} catch (ServletException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	}
+
 }

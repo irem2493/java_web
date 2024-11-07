@@ -9,8 +9,7 @@ import DBcon.DBcon;
 import dto.User;
 
 public class UserDao {
-Connection con = DBcon.getConnection();
-	
+	Connection con = DBcon.getConnection();
 	public int checkId(String id){
 		int count = 0;
 		String query = "SELECT COUNT(uid) count FROM userTable WHERE uid=?;";

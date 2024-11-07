@@ -17,6 +17,7 @@ import dto.Reply;
 @WebServlet("/showReply")
 public class ShowReplyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+       
 	ReplyDao rDao = new ReplyDao();
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

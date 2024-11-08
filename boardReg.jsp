@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%@ include file="header.jsp" %>
+	<%@ include file="header.jsp" %>
 	<hr>
 	<div>
 		<form action="boardManage" method="post">

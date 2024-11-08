@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<title>Insert title here</title>
 </head>
 <body>
-<%@ include file="header.jsp" %>  
+	<%@ include file="header.jsp" %>  
 	<h2>로그인 페이지</h2>
 	<hr>
 		<input type='hidden' name='mode' value='login' id='mode'> 
@@ -22,7 +22,7 @@
 	        var userPw = document.getElementById('userPw').value;
 			var mode = document.getElementById('mode').value;
 	        $.ajax({
-	            url: "user",  
+	            url: "login",  
 	            type: "POST",  
 	            data: {
 	                userId: userId,

@@ -1,15 +1,15 @@
 package dto;
 
-import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import lombok.Data;
 
 @Data
 public class Board {
-	private int bno;
-	private String title, contents, uid;
-	private Date create_date;
+	int bno;
+	String title, contents, uid;
+	Date create_date;
 	
 	 public String toJson() {
 		 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // 날짜 형식 지정

@@ -19,9 +19,8 @@ import dto.Board;
 @WebServlet("/boardManage")
 public class BoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	BoardDao bDao = new BoardDao();
-	   
+    BoardDao bDao = new BoardDao();
+   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
@@ -43,7 +42,7 @@ public class BoardServlet extends HttpServlet {
         }
 
         jsonResponse.append("]");
-
+        System.out.println(jsonResponse.toString());
         // 클라이언트에 JSON 데이터 전송
         out.write(jsonResponse.toString());
 	}
@@ -54,7 +53,6 @@ public class BoardServlet extends HttpServlet {
 		String mode = request.getParameter("mode");
 		if(mode.equals("breg")) registerBoard(request, response);
 		else if(mode.equals("bdel")) deleteBoard(request, response);
-		
 	}
 	
 	//게시판 등록
@@ -80,14 +78,15 @@ public class BoardServlet extends HttpServlet {
 	//게시글 삭제
 	void deleteBoard(HttpServletRequest request, HttpServletResponse response) {
 		HttpSession session = request.getSession();
-		Board board = new Board();
 		int bresult_del = 0;
+		//댓글 삭제(댓글이 있는지 없는지 확인하기)
 		ReplyDao rDao = new ReplyDao();
-		int prst = rDao.deleteReplys(Integer.parseInt(request.getParameter("bno")));
-		if(prst > 0) {
-			bresult_del = bDao.deleteBoard((String)session.getAttribute("userId"), Integer.parseInt(request.getParameter("bno")));
-		}
-		
+		int pCnt = rDao.selectReplyCnt(Integer.parseInt(request.getParameter("bno")));
+		if(pCnt > 0)rDao.deleteReplys(Integer.parseInt(request.getParameter("bno")));
+		System.out.println(pCnt > 0);
+		//게시글 삭제
+		bresult_del = bDao.deleteBoard((String)session.getAttribute("userId"), Integer.parseInt(request.getParameter("bno")));
+		System.out.println(bresult_del);
 		if(bresult_del > 0) {
 			request.setAttribute("bresult_del", bresult_del);
 			try {
@@ -100,5 +99,4 @@ public class BoardServlet extends HttpServlet {
 		}
 		
 	}
-
 }

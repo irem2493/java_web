@@ -7,10 +7,10 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<%@ include file="header.jsp" %> 
+<%@ include file="header.jsp" %> 
 	<h2>회원가입</h2>
 	<hr>
-	<form action="login" method="post">
+	<form action="user" method="post">
 		<input type='hidden' name='mode' value='reg' id='mode'> 
 		ID : <input type="text" name="id" id="id"> <button type="button" onclick="checkID()">ID 중복확인</button><br>
 		<div id="check"></div><br>
@@ -25,7 +25,7 @@
 		  xhttp.onload = function() {
 		    document.getElementById("check").innerHTML = this.responseText;
 		  }
-		  xhttp.open("GET", "login?id="+id.value+"&mode="+mode.value);
+		  xhttp.open("GET", "user?id="+id.value+"&mode="+mode.value);
 		  xhttp.send();
 		}
 		
@@ -43,6 +43,7 @@
 	      	alert("회원등록이 성공적으로 등록되었습니다!");
 	      	location.href='index.jsp';
 	      </script>
-      <%} }%> 
+      <%}
+      }%> 
 </body>
 </html>

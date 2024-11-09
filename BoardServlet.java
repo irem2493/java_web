@@ -19,8 +19,9 @@ import dto.Board;
 @WebServlet("/boardManage")
 public class BoardServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-    BoardDao bDao = new BoardDao();
-   
+       
+	BoardDao bDao = new BoardDao();
+	   
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html; charset=utf-8");
@@ -42,7 +43,7 @@ public class BoardServlet extends HttpServlet {
         }
 
         jsonResponse.append("]");
-        System.out.println(jsonResponse.toString());
+
         // 클라이언트에 JSON 데이터 전송
         out.write(jsonResponse.toString());
 	}
@@ -53,6 +54,7 @@ public class BoardServlet extends HttpServlet {
 		String mode = request.getParameter("mode");
 		if(mode.equals("breg")) registerBoard(request, response);
 		else if(mode.equals("bdel")) deleteBoard(request, response);
+		
 	}
 	
 	//게시판 등록
@@ -86,7 +88,7 @@ public class BoardServlet extends HttpServlet {
 		System.out.println(pCnt > 0);
 		//게시글 삭제
 		bresult_del = bDao.deleteBoard((String)session.getAttribute("userId"), Integer.parseInt(request.getParameter("bno")));
-		System.out.println(bresult_del);
+		//System.out.println(bresult_del);
 		if(bresult_del > 0) {
 			request.setAttribute("bresult_del", bresult_del);
 			try {
@@ -97,6 +99,5 @@ public class BoardServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-		
 	}
 }

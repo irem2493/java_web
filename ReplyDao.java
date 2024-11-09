@@ -1,5 +1,4 @@
 package dao;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,7 +7,6 @@ import java.util.ArrayList;
 
 import DBcon.DBcon;
 import dto.Reply;
-
 public class ReplyDao {
 	Connection conn = DBcon.getConnection();
     public int insertReply(Reply replyDTO){
@@ -25,7 +23,6 @@ public class ReplyDao {
         }
         return result;
     }
-    
     //게시글 번호로 댓글 조회
     public int selectReplyCnt(int bno) {
     	int cnt = 0;
@@ -42,7 +39,6 @@ public class ReplyDao {
          }
     	return cnt;
     }
-
     public ArrayList<Reply> selectReply(int bno){
         ArrayList<Reply> r = new ArrayList<>();
         Reply replyDto;
@@ -56,7 +52,7 @@ public class ReplyDao {
                 replyDto.setRcontents(rs.getString("rcontents"));
                 replyDto.setUid(rs.getString("uid"));
                 replyDto.setRno(rs.getInt("rno"));
-                replyDto.setR_create_date(rs.getTimestamp("r_create_date"));
+                replyDto.setR_create_date(rs.getDate("r_create_date"));
                 r.add(replyDto);
             }
         } catch (SQLException e) {
@@ -64,7 +60,7 @@ public class ReplyDao {
         }
         return r;
     }
-
+    
     public int updateReply(int rno, String uid, String rcontents) {
         String query = "UPDATE replyTable SET rcontents = ?, r_update_date = NOW() WHERE uid = ? and rno = ?;";
         int result = 0;
@@ -80,7 +76,7 @@ public class ReplyDao {
         return result;
     }
 
-  //댓글 하나 삭제
+    //댓글 하나 삭제
     public int deleteReply(int rno, String id){
         String query = "DELETE FROM replyTable WHERE uid = ? and rno = ?;";
         int result = 0;

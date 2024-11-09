@@ -4,11 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Index</title>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
-	<%@ include file="header.jsp" %>  
+<%@ include file="header.jsp" %>  
 	<h2>게시판</h2>
 	<hr>
 	<%
@@ -32,6 +32,7 @@
 		</tbody>
 	</table>
 	<script>
+	
 	$.ajax({
 	    url: "boardManage", 
 	    type: "get",

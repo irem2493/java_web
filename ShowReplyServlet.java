@@ -68,7 +68,7 @@ public class ShowReplyServlet extends HttpServlet {
 		String title = request.getParameter("title");
 		String contents = request.getParameter("contents");
 		String createDate = request.getParameter("createDate");
-		System.out.println(createDate);
+		//System.out.println(createDate);
 		int pdel_result = rDao.deleteReply(Integer.parseInt(request.getParameter("rno")),request.getParameter("uid"));
 		if(pdel_result > 0) {
 			request.setAttribute("pdel_result", pdel_result);

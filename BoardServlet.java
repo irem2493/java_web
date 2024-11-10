@@ -2,6 +2,7 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -104,6 +105,14 @@ public class BoardServlet extends HttpServlet {
 	
 	//게시글 수정
 	void updateBoard(HttpServletRequest request, HttpServletResponse response) {
-		
+		int bno=Integer.parseInt(request.getParameter("bno"));
+		String title = request.getParameter("title");
+		String contents = request.getParameter("contents");
+		String createDate = request.getParameter("createDate");
+		try {
+			response.sendRedirect("boardUpd.jsp?bno="+bno+"&title="+title+"&contents="+contents+"&createDate="+createDate);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

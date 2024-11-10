@@ -73,7 +73,7 @@ public class BoardDao {
     }
 
     //게시물 내용 수정
-    public int updateBoard(Board board, int bno){
+    public int updateBoard(Board board){
         int result = 0;
         String query = "UPDATE boardtable SET title = ?, contents = ?, modify_date = NOW() WHERE uid = ? and bno = ?;";
         try {
@@ -81,7 +81,7 @@ public class BoardDao {
             pstmt.setString(1, board.getTitle());
             pstmt.setString(2, board.getContents());
             pstmt.setString(3, board.getUid());
-            pstmt.setInt(4, bno);
+            pstmt.setInt(4, board.getBno());
             result = pstmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

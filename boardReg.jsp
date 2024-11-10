@@ -14,7 +14,7 @@
 		<input type="hidden" type="text" name="mode" value="breg">
 			제목 : <input type="text" name="btitle">
 			내용 : <input type="text" name="bcontent">
-			<input type="submit" value="게시글등록">
+			<input type="submit" value="게시글 등록">
 		</form>
 	</div>
 	<%
@@ -26,6 +26,7 @@
 
      %>
      	<script>
+     	//빈 값 확인한 뒤에 넣도록 하기
 	      	alert("게시글이 성공적으로 등록되었습니다!");
 	      	location.href='index.jsp';
 	      </script>

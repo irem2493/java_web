@@ -92,10 +92,10 @@
       $.ajax({
   	    url: "showReply", 
   	    type: "get",
-  	    data: {bno : '${param.bno.split("t")[0]}',
-  	    	titile : '${param.title}',
-  	    	contents: '${param.contents}',
-  	    	createdate : '${param.createDate }'},
+  	    data: {bno : bno,
+  	    	titile : title,
+  	    	contents: contents,
+  	    	createdate : createDate},
   	    dataType: "json",
   	  success: function(data) {
           // 댓글 데이터가 있을 경우
@@ -151,8 +151,8 @@
     	  $.ajax({
     		  url:"boardManage",
     		  type: "post",
-    		  data: {bno : '${param.bno.split("t")[0]}',
-    			  	uid : '${userId}',
+    		  data: {bno : bno,
+    			  	uid : userId,
     			  	mode : 'bdel'
     		  },success: function(data){    
     			    alert("게시글이 삭제되었습니다.");
@@ -166,31 +166,12 @@
       }
       
       function updateBoard(){
-    	  $.ajax({
-    		  url:"boardManage",
-    		  type: "post",
-    		  data: {bno : '${param.bno.split("t")[0]}',
-    			  	title: '${param.title}',
-    			  	contents : '${param.contents}',
-    			  	createDate : '${param.createDate}',
-    			  	uid : '${userId}',
-    			  	mode : 'bupd'
-    		  },success: function(data){  
-    			  if(data === 'success'){
-    			    alert("게시글이 수정되었습니다.");
-    			    location.href = 'replyReg.jsp?bno=' + ${param.bno} +
-    	            '&title=' + encodeURIComponent("${param.title}") +
-    	            '&contents=' + encodeURIComponent("${param.contents}") +
-    	            '&uid=' + encodeURIComponent("${param.uid}")+
-    	            '&createDate='+encodeURIComponent("${param.createDate}");
-    				  
-    			  }
-    		    },
-    		   error : function (data) {
-    		    alert('죄송합니다. 잠시 후 다시 시도해주세요.');
-    		    return false;
-    		   }
-    	  });
+    	  location.href='boardUpd.jsp?bno='+bno+
+    			  '&uid='+userId+
+    			  '&title='+title+
+    			  '&contents='+contents+
+    			  '&createDate='+createDate+
+    			  '&mode=bupd';
       }
       
       </script>
@@ -204,6 +185,25 @@
      %>
      	<script>
 	      	alert("댓글이 삭제되었습니다");
+	      	location.href = 'replyReg.jsp?bno=' + ${param.bno} +
+            '&title=' + encodeURIComponent("${param.title}") +
+            '&contents=' + encodeURIComponent("${param.contents}") +
+            '&uid=' + encodeURIComponent("${param.uid}")+
+            '&createDate='+encodeURIComponent("${param.createDate}");
+	      </script>
+      <%}
+      }%> 
+      
+      <%
+     
+	int bresult_upd;
+      if(request.getAttribute("bresult_upd") != null){
+    	  bresult_upd = (int)request.getAttribute("bresult_upd");
+     		 if(bresult_upd > 0){
+
+     %>
+     	<script>
+	      	alert("게시글이 수정되었습니다");
 	      	location.href = 'replyReg.jsp?bno=' + ${param.bno} +
             '&title=' + encodeURIComponent("${param.title}") +
             '&contents=' + encodeURIComponent("${param.contents}") +

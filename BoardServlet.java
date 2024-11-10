@@ -54,6 +54,7 @@ public class BoardServlet extends HttpServlet {
 		String mode = request.getParameter("mode");
 		if(mode.equals("breg")) registerBoard(request, response);
 		else if(mode.equals("bdel")) deleteBoard(request, response);
+		else if(mode.equals("bupd")) deleteBoard(request, response);
 		
 	}
 	
@@ -99,5 +100,10 @@ public class BoardServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+	}
+	
+	//게시글 수정
+	void updateBoard(HttpServletRequest request, HttpServletResponse response) {
+		
 	}
 }

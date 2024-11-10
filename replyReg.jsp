@@ -165,6 +165,33 @@
     	  });
       }
       
+      function updateBoard(){
+    	  $.ajax({
+    		  url:"boardManage",
+    		  type: "post",
+    		  data: {bno : '${param.bno.split("t")[0]}',
+    			  	title: '${param.title}',
+    			  	contents : '${param.contents}',
+    			  	createDate : '${param.createDate}',
+    			  	uid : '${userId}',
+    			  	mode : 'bupd'
+    		  },success: function(data){  
+    			  if(data === 'success'){
+    			    alert("게시글이 수정되었습니다.");
+    			    location.href = 'replyReg.jsp?bno=' + ${param.bno} +
+    	            '&title=' + encodeURIComponent("${param.title}") +
+    	            '&contents=' + encodeURIComponent("${param.contents}") +
+    	            '&uid=' + encodeURIComponent("${param.uid}")+
+    	            '&createDate='+encodeURIComponent("${param.createDate}");
+    				  
+    			  }
+    		    },
+    		   error : function (data) {
+    		    alert('죄송합니다. 잠시 후 다시 시도해주세요.');
+    		    return false;
+    		   }
+    	  });
+      }
       
       </script>
       <%

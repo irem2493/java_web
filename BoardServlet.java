@@ -55,7 +55,7 @@ public class BoardServlet extends HttpServlet {
 		String mode = request.getParameter("mode");
 		if(mode.equals("breg")) registerBoard(request, response);
 		else if(mode.equals("bdel")) deleteBoard(request, response);
-		else if(mode.equals("bupd")) deleteBoard(request, response);
+		else if(mode.equals("bupd")) updateBoard(request, response);
 		
 	}
 	

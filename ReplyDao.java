@@ -31,9 +31,10 @@ public class ReplyDao {
              PreparedStatement pstmt = conn.prepareStatement(query);
              pstmt.setInt(1,bno);
              ResultSet rs = pstmt.executeQuery();
-             rs.next();
-             cnt = rs.getInt(cnt);
-             System.out.println(cnt);
+             if(rs.next()) {
+	             cnt = rs.getInt("cnt");
+	             //System.out.println(cnt);
+             }
          } catch (SQLException e) {
              e.printStackTrace();
          }

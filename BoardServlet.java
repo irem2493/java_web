@@ -106,13 +106,34 @@ public class BoardServlet extends HttpServlet {
 	//게시글 수정
 	void updateBoard(HttpServletRequest request, HttpServletResponse response) {
 		int bno=Integer.parseInt(request.getParameter("bno"));
+		String uid = request.getParameter("uid");
 		String title = request.getParameter("title");
 		String contents = request.getParameter("contents");
-		String createDate = request.getParameter("createDate");
-		try {
-			response.sendRedirect("boardUpd.jsp?bno="+bno+"&title="+title+"&contents="+contents+"&createDate="+createDate);
-		} catch (IOException e) {
-			e.printStackTrace();
+		String createDate = request.getParameter("craeteDate");
+		
+		Board board = new Board();
+		board.setBno(bno);
+		board.setTitle(title);
+		board.setContents(contents);
+		board.setUid(uid);
+		//System.out.println(createDate+"-------");
+		board.setCreate_date(Date.valueOf(createDate));
+		int bresult_upd = bDao.updateBoard(board);
+		if(bresult_upd > 0) {
+			request.setAttribute("bresult_upd", bresult_upd);
+			System.out.println("게시글 수정 성공");
+			try {
+				request.getRequestDispatcher("replyReg.jsp?bresult_upd="+bresult_upd+
+						"&bno="+bno+"&title="+title+"&contents="+contents+"&createDate="+createDate+"&uid="+uid).forward(request, response);
+			} catch (ServletException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else {
+			System.out.println(board);
+			System.out.println("게시글 수정 실패");
 		}
+		
 	}
 }

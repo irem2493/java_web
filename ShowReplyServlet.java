@@ -28,6 +28,7 @@ public class ShowReplyServlet extends HttpServlet {
 		String mode = request.getParameter("mode");
         if(mode != null) {
 	        if(mode.equals("pdel")) deleteReply(request,response);
+	        
         }
         else {
 		int bno = Integer.parseInt(request.getParameter("bno"));
@@ -53,12 +54,6 @@ public class ShowReplyServlet extends HttpServlet {
 	        // 클라이언트에 JSON 데이터 전송
 	        out.write(jsonResponse.toString());
         }
-	}
-
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
 	}
 	
 	//댓글 삭제

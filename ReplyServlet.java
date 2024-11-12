@@ -48,7 +48,9 @@ public class ReplyServlet extends HttpServlet {
 			
 			String mode = request.getParameter("mode");
 			if(mode.equals("regRp")) registerReply(request, response);
+			else if(mode.equals("modRp")) modifyReply(request, response);
 		}
+		//댓글 등록
 		void registerReply(HttpServletRequest request, HttpServletResponse response) {
 			Reply reply = new Reply();
 			int bno=Integer.parseInt(request.getParameter("bno").split("t")[0]);
@@ -68,5 +70,28 @@ public class ReplyServlet extends HttpServlet {
 				}
 			}
 		}
-
+		//댓글 수정
+		void modifyReply(HttpServletRequest request, HttpServletResponse response) {
+			int rno = Integer.parseInt(request.getParameter("rno"));
+			String uid = request.getParameter("uid");
+			String rcontents = request.getParameter("rcontents");
+			
+			int bno = Integer.parseInt(request.getParameter("bno"));
+			String title = request.getParameter("title");
+			String contents = request.getParameter("contents");
+			String createDate = request.getParameter("createDate");
+			int pUpd_result = rDao.updateReply(rno, uid, rcontents);
+			if(pUpd_result > 0) {
+				request.setAttribute("pUpd_result", pUpd_result);
+				try {
+					request.getRequestDispatcher("replyReg.jsp?pUpd_result="+pUpd_result+"&bno="+bno
+							+"&title="+title+"&contents="+contents
+							+"&createDate="+createDate).forward(request, response);
+				} catch (ServletException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+		}
 }

@@ -114,11 +114,11 @@
 
                   // 로그인한 사용자와 댓글 작성자가 같을 경우, 수정/삭제 링크 추가
                   if (userId === uid) {
-                      row += '<td><a href="showReply?rno=' + rno +
+                      row += '<td><a href="replyMod.jsp?rno=' + rno +
                           '&uid=' + encodeURIComponent(uid) +
                           '&rcontents=' + encodeURIComponent(rcontents) +
                           '&rCreateDate=' + encodeURIComponent(rCreateDate) +
-                          '&mode=pmod&bno=' + bno +
+                          '&bno=' + bno +
                           '&title=' + title + 
                           '&contents=' + contents + 
                           '&createDate=' + createDate + '">댓글수정</a></td>';
@@ -204,6 +204,25 @@
      %>
      	<script>
 	      	alert("게시글이 수정되었습니다");
+	      	location.href = 'replyReg.jsp?bno=' + ${param.bno} +
+            '&title=' + encodeURIComponent("${param.title}") +
+            '&contents=' + encodeURIComponent("${param.contents}") +
+            '&uid=' + encodeURIComponent("${param.uid}")+
+            '&createDate='+encodeURIComponent("${param.createDate}");
+	      </script>
+      <%}
+      }%> 
+      
+      <%
+     
+	int pUpd_result;
+      if(request.getAttribute("pUpd_result") != null){
+    	  pUpd_result = (int)request.getAttribute("pUpd_result");
+     		 if(pUpd_result > 0){
+
+     %>
+     	<script>
+	      	alert("댓글이 수정되었습니다");
 	      	location.href = 'replyReg.jsp?bno=' + ${param.bno} +
             '&title=' + encodeURIComponent("${param.title}") +
             '&contents=' + encodeURIComponent("${param.contents}") +

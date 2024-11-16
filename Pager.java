@@ -40,7 +40,22 @@ public class Pager {
 		if(endPage>totalPage) {endPage = totalPage;}
 		
 		prevPage = startPage-blockSize;
+		if (prevPage < 1) {
+			prevPage = 0;  // 첫 페이지보다 작은 값이 나오지 않도록 처리
+	    }
 		nextPage = startPage+blockSize;
-	
+		if (nextPage > totalPage) {
+	        nextPage = totalPage;  // 마지막 페이지가 넘어가지 않도록 처리
+	    }
 	}
+	
+	public String toJson() {
+        return String.format(
+            "{\"pageNum\": %d, \"totalBoard\": %d, \"pageSize\": %d, \"blockSize\": %d, " +
+            "\"totalPage\": %d, \"startRow\": %d, \"endRow\": %d, \"startPage\": %d, " +
+            "\"endPage\": %d, \"prevPage\": %d, \"nextPage\": %d}",
+            pageNum, totalBoard, pageSize, blockSize, totalPage, startRow, endRow, 
+            startPage, endPage, prevPage, nextPage
+        );
+    }
 }

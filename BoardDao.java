@@ -13,12 +13,16 @@ import dto.Board;
 public class BoardDao {
 	Connection conn = DBcon.getConnection();
 
-    public ArrayList<Board> selectBoard() {
-        String query = "SELECT bno, title, contents, uid, DATE(create_date) create_date FROM boardTable;";
+    public ArrayList<Board> selectBoard(int startRow, int pageSize) {
+    	System.out.println(startRow+", "+pageSize);
+        String query = "SELECT bno, title, contents, uid, DATE(create_date) create_date FROM boardTable "
+        		+ "LIMIT ?,?;";
         ArrayList<Board> boardList = new ArrayList<>();
         try {
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(query);
+            PreparedStatement pstmt = conn.prepareStatement(query);
+            pstmt.setInt(1, startRow);
+            pstmt.setInt(2, pageSize);
+            ResultSet rs = pstmt.executeQuery();
             while(rs.next()) {
             	Board boardDTO= new Board();
             	boardDTO.setTitle(rs.getString("title"));
@@ -32,6 +36,20 @@ public class BoardDao {
             e.printStackTrace();
         }
         return boardList;
+    }
+    
+    public int getBListCnt() {
+    	String query="SELECT COUNT(*) cnt FROM boardTable;";
+    	int count = 0;
+    	try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			rs.next();
+			count = rs.getInt("cnt");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	return count;
     }
 
     public Board selectBoardContents(int bno){

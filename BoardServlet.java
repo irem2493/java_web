@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import dao.BoardDao;
 import dao.ReplyDao;
 import dto.Board;
+import dto.Pager;
 
 
 @WebServlet("/boardManage")
@@ -28,12 +29,17 @@ public class BoardServlet extends HttpServlet {
 		response.setContentType("text/html; charset=utf-8");
 		response.setContentType("utf-8");
 		//게시판 보기
-		ArrayList<Board> bList = bDao.selectBoard();
+		int bCnt = bDao.getBListCnt();
+		System.out.println(request.getParameter("pageNum")+"---pageNum");
+		int pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		Pager pager = new Pager(pageNum, bCnt, 3, 10);
+		ArrayList<Board> bList = bDao.selectBoard(pager.getStartRow()-1, pager.getPageSize());
 		PrintWriter out = response.getWriter();
         
-     // JSON 배열을 만들기
         StringBuilder jsonResponse = new StringBuilder();
-        jsonResponse.append("[");
+        jsonResponse.append("{");  // JSON 객체 시작
+        jsonResponse.append("\"totalCount\": ").append(bCnt).append(","); 
+        jsonResponse.append("\"bList\":[");
 
         for (int i = 0; i < bList.size(); i++) {
             Board board = bList.get(i);
@@ -43,10 +49,18 @@ public class BoardServlet extends HttpServlet {
             }
         }
 
-        jsonResponse.append("]");
-
+        jsonResponse.append("],");
+        
+        // Pager 데이터 포함
+        jsonResponse.append("\"pager\": ");
+        jsonResponse.append(pager.toJson());  // Pager 객체를 JSON으로 변환
+        
+        jsonResponse.append("}");  // JSON 객체 끝
+        
         // 클라이언트에 JSON 데이터 전송
+        out = response.getWriter();
         out.write(jsonResponse.toString());
+        out.flush();
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
